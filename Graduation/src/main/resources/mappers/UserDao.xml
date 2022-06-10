@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.dao.UserDao">
+
+    <insert id="addUser" parameterType="User">
+        INSERT INTO user(u_name,u_pwd,u_sex,u_phone,a_id)
+        VALUE(#{u_name},#{u_pwd},#{u_sex},#{u_phone},#{a_id});
+    </insert>
+
+    <select id="queryUserByName" resultType="User">
+        select * from user where u_name = #{u_name};
+    </select>
+
+    <select id="queryMsgByUserId" resultType="Message">
+        select * from message where u_id = #{u_id};
+    </select>
+
+    <select id="queryLeaByUserId" resultType="Leave">
+        select * from leaves where u_id = #{u_id};
+    </select>
+
+    <select id="queryUserById" resultType="User">
+        select * from user where u_id = #{u_id};
+    </select>
+
+    <update id="updateUserById" parameterType="User">
+        update user
+        set u_name = #{u_name},u_pwd = #{u_pwd},u_sex = #{u_sex},u_phone = #{u_phone}
+        where u_id = #{u_id};
+    </update>
+
+    <update id="upPwd" parameterType="User">
+        update user
+        set u_pwd = #{u_pwd}
+        where u_phone = #{u_phone} and u_name = #{u_name};
+    </update>
+
+    <delete id="delMsg" parameterType="int">
+        delete from message where m_id = #{m_id}
+    </delete>
+
+    <delete id="delLea" parameterType="int">
+        delete from leaves where l_id = #{l_id}
+    </delete>
+</mapper>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://thymeleaf.org">
+<!--标题栏-->
+<div th:insert="~{commons/commons::header}"></div>
+<body>
+<!--头部栏-->
+<div th:insert="~{commons/commons::topbar(active='release.html')}"></div>
+
+<div class="cl-cantainer container">
+    <div class="row">
+        <div th:insert="~{commons/commons::info}"></div>
+        <!--资讯卡片-->
+        <div class="col-md-9 cl-left">
+            <!--资讯卡片-->
+            <div class="cl-card">
+                <div th:if="${not #strings.isEmpty(gMsg)}" class="alert alert-success">
+                    <h4>还没有属于自己的文章喔!</h4><br/>
+                    <a th:href="@{/release}">去发布!</a>
+                </div>
+                <div th:each="msg:${message}" class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 cl-card-image"><a class="btn-sm" th:href="@{/toDetails/}+${msg.getM_id()}"><img th:src="@{img/list-image1.jpg}" class="img-fluid" alt=""></a></div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 cl-card-main">
+                        <h3 class="cl-card-main-title"><a th:href="@{/toDetails/}+${msg.getM_id()}" th:text="${msg.getM_title()}"></a></h3>
+                        <p class="cl-card-main-info" th:text="${#strings.abbreviate(msg.getM_content(),150)}"></p>
+                        <p class="cl-card-more"><a th:href="@{/toDetails/}+${msg.getM_id()}">阅读更多...</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--右边菜单栏-->
+        <div class="col-md-3 cl-right" >
+            <div class="right-card" >
+                <div class="right-card-main">
+                    <div class="right-card-title">账号信息</div>
+                    <div class="label">
+                        <p>
+                            <span >用户名:<span th:text="${user.getU_name()}"></span></span>
+                            <br/>
+                            <span >性别:<span th:text="${user.getU_sex()==1?'男':'女'}"></span></span>
+                            <br/>
+                            <span >手机号码:<span th:text="${user.getU_phone()}"></span></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部栏-->
+<div th:insert="~{commons/commons::bottom}"></div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/highlight.pack.js}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

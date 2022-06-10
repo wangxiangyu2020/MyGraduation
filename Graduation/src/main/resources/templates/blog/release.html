@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://thymeleaf.org">
+<!--标题栏-->
+<div th:insert="~{commons/commons::header}"></div>
+<body>
+<!--头部栏-->
+<div th:insert="~{commons/commons::topbar(active='release.html')}"></div>
+
+<div class="cl-cantainer container">
+    <div class="row">
+        <div class="col-md-9 cl-left">
+            <div class="cl-artical-content">
+                <form th:action="@{/release}">
+                    <div class="right-card-title">发布资讯</div>
+                    <div class="form-group">
+                        <input type="text" class="form-control-title" name="m_title" placeholder="请输入文章标题">
+                    </div>
+                    <div th:if="${not #strings.isEmpty(rMsg)}" class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;
+                        </button>
+                        [[${rMsg}]]
+                    </div>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control-message" rows="100" name="m_content"></textarea>
+                    </div>
+                    <div style="text-align:center">
+                        <button type="submit" class="btn btn-primary" >发布</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!--右边菜单栏-->
+        <div class="col-md-3 cl-right" >
+            <div th:insert="~{commons/commons::right-2}"></div>
+            <div th:insert="~{commons/commons::right-2}"></div>
+        </div>
+    </div>
+</div>
+
+<!--底部栏-->
+<div th:insert="~{commons/commons::bottom}"></div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/highlight.pack.js}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

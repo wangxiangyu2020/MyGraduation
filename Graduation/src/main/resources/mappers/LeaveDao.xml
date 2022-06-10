@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.dao.LeaveDao">
+
+    <insert id="addLeave" parameterType="Leave">
+        INSERT INTO leaves(l_content,l_time,m_id,u_id,u_name)
+        VALUE(#{l_content},#{l_time},#{m_id},#{u_id},#{u_name});
+    </insert>
+
+    <select id="queryLeaveByM_id" resultType="Leave">
+        select * from leaves where m_id = #{m_id}
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from leaves where m_id = #{m_id}
+    </select>
+
+</mapper>

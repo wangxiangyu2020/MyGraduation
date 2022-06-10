@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://thymeleaf.org">
+<!--标题栏-->
+<div th:insert="~{commons/commons::header}"></div>
+<body>
+<!--头部栏-->
+<div th:insert="~{commons/commons::topbar(active='upUserInfo.html')}"></div>
+
+<div class="cl-cantainer container">
+    <div class="row">
+        <!--左边菜单栏-->
+        <div class="col-md-9 cl-left" th:each="page:${pageInfo}">
+            <!--资讯卡片-->
+            <div class="cl-card" th:each="msg:${page.list}">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 cl-card-image"><a class="btn-sm" th:href="@{/toDetails/}+${msg.getM_id()}"><img th:src="@{img/list-image1.jpg}" class="img-fluid" alt=""></a></div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 cl-card-main">
+                        <h3 class="cl-card-main-title"><a th:href="@{/toDetails/}+${msg.getM_id()}" th:text="${msg.getM_title()}"></a></h3>
+                        <p class="cl-card-main-info" th:text="${#strings.abbreviate(msg.getM_content(),150)}"></p>
+                        <p class="cl-card-more"><a th:href="@{/toDetails/}+${msg.getM_id()}">阅读更多...</a></p>
+                    </div>
+                </div>
+            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a th:href="@{/?pn=1}" class="page-link">
+                            首页
+                        </a>
+                    </li>
+
+                    <li class="page-item ">
+                        <a th:if="${page.pageNum>=1}" th:href="@{/(pn=${page.pageNum-1})}" class="page-link">
+                            上一页
+                        </a>
+                    </li>
+                    <li th:if="${page.pageNum!=1}" th:each="nav:${#numbers.sequence(page.pageNum-3>0?page.pageNum-3:1,page.pageNum-1)}" class="page-item">
+                        <a class="page-link" th:href="@{/(pn=${nav})}" th:text="${nav}"></a>
+                    </li>
+                    <li th:if="${page.pageNum!=page.pages}" class="page-item">
+                        <a class="page-link" th:text="${page.pageNum}"></a>
+                    </li>
+                    <li th:if="${page.pageNum!=page.pages}" th:each="nav:${#numbers.sequence(page.pageNum+1,page.pageNum+3<page.pages?page.pageNum+3:page.pages)}" class="page-item">
+                        <a class="page-link" th:href="@{/(pn=${nav})}" th:text="${nav}"></a>
+                    </li>
+                    <li class="page-item">
+                        <a th:if="${page.pageNum<=page.pages}" class="page-link" th:href="@{/(pn=${page.pageNum+1})}" >
+                            下一页
+                        </a>
+                    </li>
+
+                    <li class="page-item">
+                        <a th:href="@{/(pn=${page.pages})}" class="page-link">
+                            末页
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!--右边菜单栏-->
+        <div class="col-md-3 cl-right" >
+            <div th:insert="~{commons/commons::right-1}"></div>
+            <div th:insert="~{commons/commons::right-2}"></div>
+        </div>
+    </div>
+
+</div>
+<!--底部栏-->
+<div th:insert="~{commons/commons::bottom}"></div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/highlight.pack.js}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

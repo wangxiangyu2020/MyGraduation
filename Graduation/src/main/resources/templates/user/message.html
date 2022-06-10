@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://thymeleaf.org">
+<!--标题栏-->
+<div th:insert="~{commons/commons::header}"></div>
+<body>
+<!--头部栏-->
+<div th:insert="~{commons/commons::topbar}"></div>
+
+<div class="cl-cantainer container">
+    <div class="row">
+        <div th:insert="~{commons/commons::info}"></div>
+        <div class="col-lg-12 col-md-12 col-sm-12 cl-card-main">
+            <div class="cl-artical-content">
+                <div th:insert="~{commons/commons::manger(active='message.html')}"></div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>标题</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="msg:${message}">
+                            <td th:text="${msg.getM_time()}"></td>
+                            <td th:text="${msg.getM_title()}"></td>
+                            <td>
+                                <a class="btn btn-sm btn-danger" th:href="@{/delMsg/}+${msg.getM_id()}">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--底部栏-->
+<div th:insert="~{commons/commons::bottom}"></div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/highlight.pack.js}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>动画注册登录页面_dowebok</title>
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="materialContainer">
+        <div class="box">
+            <form th:action="@{/login}">
+                <div class="title">登录</div>
+                <div class="input">
+                    <label for="name">用户名</label>
+                    <input onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" type="text" name="name" id="name">
+                    <span class="spin"></span>
+                </div>
+                <div class="input">
+                    <label for="pass">密码</label>
+                    <input onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" type="password" name="pwd" id="pass">
+                    <span class="spin"></span>
+                </div>
+                <div class="button login">
+                    <button type="submit">
+                        <span>登录</span>
+                    </button>
+                </div>
+            </form>
+            <a href="javascript:" class="pass-forgot">忘记密码？</a>
+        </div>
+
+        <div class="overbox">
+            <div class="material-button alt-2">
+                <span class="shape"></span>
+            </div>
+            <form th:action="@{/register}">
+                <div class="title">注册</div>
+                <div class="input">
+                    <label for="regname">昵称</label>
+                    <input onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" type="text" name="u_name" id="regname">
+                    <span class="spin"></span>
+                </div>
+                <div class="input">
+                    <label for="regpass">密码</label>
+                    <input onkeyup="value=value.replace(/[\u4E00-\u9FA5]/g,'')" type="password" name="u_pwd" id="regpass">
+                    <span class="spin"></span>
+                </div>
+                <div class="input">
+                    <label for="phone">手机号码</label>
+                    <input type="text" name="u_phone" id="phone" onchange="checkPhone()">
+                    <span class="spin"></span>
+                </div>
+                <div class="button">
+                    <button type="submit">
+                        <span>注册</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="alert alert-warning alert-dismissible" role="alert" th:if="${not #strings.isEmpty(session.rgMsg)}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong th:text="${session.rgMsg}"></strong>
+        </div>
+
+        <div class="alert alert-warning alert-dismissible" role="alert" th:if="${not #strings.isEmpty(Msg)}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong th:text="${Msg}"></strong>
+        </div>
+
+    </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/index.js}"></script>
+</body>
+<script>
+
+    function checkPhone(){
+        var phone = document.getElementById('phone').value;
+        var regex = /^1\d{10}$/;
+        if (!regex.test(phone)){
+            alert("手机格式错误!")
+            return false;
+        }
+    }
+</script>
+</html>

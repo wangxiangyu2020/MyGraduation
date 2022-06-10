@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.dao.MessageDao">
+
+    <insert id="addMsg" parameterType="Message">
+        insert into message(m_title,m_content,m_time,u_id,m_views,u_name)
+        value (#{m_title},#{m_content},#{m_time},#{u_id},#{m_views},#{u_name})
+    </insert>
+
+    <select id="queryAll" resultType="Message">
+      select * from message
+    </select>
+
+    <select id="queryMessageById" resultType="Message">
+        select * from message where m_id = #{m_id}
+    </select>
+
+    <select id="queryMessageByLike" resultType="Message">
+        select * from message
+        <where>
+            <if test="m_title!=null">
+                and m_title like concat('%',#{m_title},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryViews" resultType="int">
+        select m_views from message where m_id = #{m_id}
+    </select>
+
+    <update id="updateViews" parameterType="Message">
+        update message
+        set m_views = #{m_views}
+        where m_id = #{m_id};
+    </update>
+
+</mapper>

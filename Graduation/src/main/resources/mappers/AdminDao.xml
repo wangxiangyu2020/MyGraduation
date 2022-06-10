@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.dao.AdminDao">
+
+    <select id="queryAll" resultType="Admin">
+      select * from admin;
+    </select>
+
+    <select id="queryByAdminName" resultType="Admin">
+      select * from admin where a_name = #{a_name};
+    </select>
+
+    <select id="queryUserAll" resultType="User">
+        select * from user;
+    </select>
+
+    <select id="queryMsgAll" resultType="Message">
+        select * from message;
+    </select>
+
+    <select id="queryLeaAll" resultType="Leave">
+        select * from leaves;
+    </select>
+
+    <select id="queryUserLike" resultType="User">
+        select * from user
+        where u_name = #{u_name};
+    </select>
+
+    <update id="upUser" parameterType="User">
+        update user
+        set u_name = #{u_name},u_pwd = #{u_pwd},u_sex = #{u_sex},u_phone = #{u_phone}
+        where u_id = #{u_id};
+    </update>
+
+    <delete id="delUser" parameterType="int">
+        delete from user where u_id = #{u_id}
+    </delete>
+
+    <delete id="delLea" parameterType="int">
+        delete from leaves where l_id = #{l_id}
+    </delete>
+
+    <delete id="delMsg" parameterType="int">
+        delete from message where m_id = #{m_id}
+    </delete>
+
+
+
+    <select id="queryLeaLike" resultType="Leave">
+        select * from leaves
+        <where>
+            <if test="u_name!=null">
+                and u_name like concat('%',#{u_name},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryMsgLike" resultType="Message">
+        select * from message
+        <where>
+            <if test="u_name!=null">
+                and u_name like concat('%',#{u_name},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryLeaById" resultType="Leave">
+        select * from leaves where l_id = #{l_id}
+    </select>
+
+    <select id="queryMsgById" resultType="Message">
+        select * from message where m_id = #{m_id}
+    </select>
+
+</mapper>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<!--标题栏-->
+<head th:fragment="header">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>王湘宇的首页</title>
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/cl-css.css}" rel="stylesheet">
+    <link th:href="@{css/font-awesome.min.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{css/railscasts.css}">
+    <link rel="stylesheet" th:href="@{css/style-search.css}">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<!--头部-->
+<div class="cl-header container-fluid" th:fragment="topbar">
+    <div class="header-content container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" th:href="calmlog-index.html">
+                <img th:src="@{/img/logo.jpg}" width="144" height="72" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li th:class="${active=='index.html'?'nav-link active':'nav-link'}">
+                        <a th:href="@{/}">首页</a>
+                    </li>
+                    <li th:class="${active=='release.html'?'nav-link active':'nav-link'}">
+                        <a th:href="@{/toRelease}">发布</a>
+                    </li>
+                    <li th:class="${active=='release.html'?'nav-link active':'nav-link'}">
+                        <a th:href="@{/query}">资讯类型</a>
+                    </li>
+                    <li class="nav-item" th:if="${#strings.isEmpty(session.name)}">
+                        <a class="nav-link" th:href="@{/toLogin}">登录</a>
+                    </li>
+              </ul>
+                <ul class="nav navbar-nav navbar-right"  th:if="${not #strings.isEmpty(session.name)}">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret" th:text="${session.name}"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:class="${active=='userInfo.html'?'nav-link active':'nav-link'}" th:href="@{/getUserInfo}">个人信息</a></li>
+                            <li><a class="nav-link" th:href="@{logout}">注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<!--资讯卡片-->
+<div class="cl-card" th:fragment="card">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-12 cl-card-image"><a th:href="@{/message}"><img th:src="@{/img/list-image1.jpg}" class="img-fluid" alt=""></a></div>
+        <div class="col-lg-9 col-md-8 col-sm-12 cl-card-main">
+            <h3 class="cl-card-main-title"><a th:href="calmlog-details.html">光是预览图就呼之欲出!十八分钟后你也会做这样的动感3D~</a></h3>
+            <p class="cl-card-main-info">本期玩皮兔为您带来的视频翻译是：运用图层样式即可get各种风格的海报文本~！本次教程所用到的所有图片素材，玩皮兔全都有，跟着视频同步学习吧~</p>
+            <p class="cl-card-more"><a th:href="calmlog-details.html">阅读更多...</a></p>
+        </div>
+    </div>
+</div>
+<!--分页栏-->
+<nav aria-label="Page navigation example" th:fragment="page">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!--右边菜单栏-->
+<div class="right-card" th:fragment="right-1">
+
+        <div class="right-card-main">
+            <div class="right-card-title">
+                <div id="search">
+                    <form th:action="@{/search}" class="form-search">
+                        <div id="search-wrap">
+                            <input class="search-content" type="text" placeholder="输入搜索内容" name="word">
+                            <button class="search-btn" type="submit">
+                                <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="right-recommended"><a href="#"><img th:src="@{img/list-right.jpg}" class="img-fluid" alt=""></a></div>
+            <ul class="right-recommended-list">
+                <li><a th:href="@{https://www.163.com/dy/article/H4UODRTC0552BFMF.html}"><i class="fa fa-angle-right" aria-hidden="true"></i>华为走上了诺基亚的老路？</a></li>
+                <li><a th:href="@{https://baijiahao.baidu.com/s?id=1729544821766453215&wfr=spider&for=pc}"><i class="fa fa-angle-right" aria-hidden="true"></i>当下互联网大厂裁员的热议</a></li>
+                <li><a th:href="@{https://finance.ifeng.com/c/8F4mgdo8CHt}"><i class="fa fa-angle-right" aria-hidden="true"></i>小鹏汽车，为何越卖越亏？</a></li>
+                <li><a th:href="@{https://baijiahao.baidu.com/s?id=1728606590408931798&wfr=spider&for=pc}"><i class="fa fa-angle-right" aria-hidden="true"></i>美团是否待黎明的到来？</a></li>
+                <li><a th:href="calmlog-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>白酒又崩了！</a></li>
+                <li><a th:href="calmlog-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>哇哈哈进军白酒行业？</a></li>
+                <li><a th:href="calmlog-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>拼多多会放弃百亿补贴？</a></li>
+                <li><a th:href="calmlog-details.html"><i class="fa fa-angle-right" aria-hidden="true"></i>跨境电商的未来</a></li>
+
+            </ul>
+        </div>
+    </div>
+<div class="right-card" th:fragment="right-2">
+
+        <div class="right-card-main">
+            <div class="right-card-title">热门标签</div>
+            <ul class="label">
+                <li><a href="#">新华社:坚持“动态清零”不放松</a></li>
+                <li><a href="#">上海官方:防疫准备不充分接受批评</a></li>
+                <li><a href="#">#上海急救医生未向患者施救被停职#</a></li>
+                <li><a href="#">东航飞行事故主要搜救任务基本完成</a></li>
+                <li><a href="#">从沪抵昆后核酸阳性男子:多人骂我</a></li>
+                <li><a href="#">从沪抵昆后核酸阳性男子:多人骂我</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+<!--底部栏-->
+<div class="container-fluid cl-footer" th:fragment="bottom">
+    <div class="container">
+        <p class="cl-copyright">本设计由简.工作室荣誉出品</p>
+        <p class="cl-copyright">copyright @ 2017~2018 简.工作室（www.jeanstudio.cn）</p>
+    </div>
+</div>
+
+<!--用户标题栏-->
+<div class="cl-card" th:fragment="info">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 cl-card-main">
+            <div class="col-lg-12 col-md-12 col-sm-12 cl-card-image">
+                <img th:src="@{img/wxy.jpg}" class="img-fluid" alt="">
+            </div>
+            <p>
+                <a class="p-4">[[${session.name}]]</a>
+                <a class="p-1" th:href="@{/getUserInfo}">文章</a>
+                <a th:href="@{/toUpInfo}">设置</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!--用户管理-->
+<div class="div-1" th:fragment="manger">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a th:class="${active=='upUserInfo.html'?'nav-link active':'nav-link'}" th:href="@{toUpInfo}">
+                修改资料
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:class="${active=='message.html'?'nav-link active':'nav-link '}" th:href="@{/u_message}">
+                我的发布
+            </a>
+        </li>
+        <li class="nav-item">
+            <a th:class="${active=='leave.html'?'nav-link active':'nav-link '}" th:href="@{/u_leave}">
+                我的留言
+            </a>
+        </li>
+    </ul>
+</div>
+</html>
+

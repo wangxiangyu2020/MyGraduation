@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://thymeleaf.org">
+<!--标题栏-->
+<div th:insert="~{commons/commons::header}"></div>
+<body>
+<!--头部栏-->
+<div th:insert="~{commons/commons::topbar(active='release.html')}"></div>
+
+<div class="cl-cantainer container">
+    <div class="row">
+        <div class="col-md-9 cl-left">
+            <div class="cl-artical-content">
+                <form th:action="@{/insert}">
+                    <div class="right-card-title">推送类型</div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="text" id="optionsRadios1" value="创业" checked>
+                            创业
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="text" id="optionsRadios2" value="国际新闻">
+                            国际新闻
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="text" id="optionsRadios3" value="足球">
+                            足球
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="text" id="optionsRadios4" value="篮球">
+                            篮球
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="text" id="optionsRadios5" value="军事">
+                            军事
+                        </label>
+                    </div>
+                    <div style="text-align:center">
+                        <button type="submit" class="btn btn-primary" >添加</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!--右边菜单栏-->
+        <div class="col-md-3 cl-right" >
+            <div th:insert="~{commons/commons::right-2}"></div>
+            <div th:insert="~{commons/commons::right-2}"></div>
+        </div>
+    </div>
+</div>
+
+<!--底部栏-->
+<div th:insert="~{commons/commons::bottom}"></div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap.min.js}"></script>
+<script th:src="@{js/highlight.pack.js}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
